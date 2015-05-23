@@ -5,6 +5,8 @@
 #include <functional>
 #include <memory>
 
+#include "messagecommon.h"
+
 class MessageDispatcher;
 
 class MessageHandler
@@ -18,13 +20,13 @@ protected:
     template<typename T>
     void sendMessage(const T& msg)
     {
-        const auto id = getMessageId(msg);
+        const auto id = getMessageId<T>();
         sendMessagePtr(id, static_cast<const void*>(&msg));
     }
     template<typename MSG, typename F>
     void subscribe(const F& handler)
     {
-        const auto id = getMessageId(*static_cast<const MSG*>(nullptr));
+        const auto id = getMessageId<MSG>();
         std::unique_ptr<CallBase> c(new Call<MSG>(handler));
         subscribePtr(id, c.release());
     }

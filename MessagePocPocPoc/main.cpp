@@ -56,11 +56,6 @@ public:
     }
 };
 
-void foo(void* i)
-{
-    cout << "foo " << i << endl;
-}
-
 int main()
 {
     MessageDispatcher dispatcher;
